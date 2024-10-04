@@ -1,3 +1,5 @@
+import { WalletStatus } from './walletStatus'
+
 const HemiLogo = () => (
   <svg viewBox="0 0 1043.5 324.5" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -12,11 +14,17 @@ const HemiLogo = () => (
   </svg>
 )
 
-const TestnetLabel = () => (
-  <div className="solid flex items-center justify-center rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1 text-base font-medium leading-normal text-orange-950">
-    <span>Hemi Bitcoin Kit Demo - Testnet</span>
-  </div>
-)
+const NetworkLabel = () => {
+  const chainNetwork = import.meta.env.VITE_CHAIN_NETWORK
+
+  return (
+    <div className="solid flex items-center justify-center rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1 text-base font-medium leading-normal text-orange-950">
+      <span>
+        Hemi Bitcoin Kit Demo {chainNetwork === 'testnet' && '- Testnet'}
+      </span>
+    </div>
+  )
+}
 
 export const Header = function () {
   return (
@@ -25,7 +33,10 @@ export const Header = function () {
         <div className="h-10 w-28">
           <HemiLogo />
         </div>
-        <TestnetLabel />
+        <NetworkLabel />
+      </div>
+      <div className="hidden md:flex">
+        <WalletStatus />
       </div>
     </header>
   )
