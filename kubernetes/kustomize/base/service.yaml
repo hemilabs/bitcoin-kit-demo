@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "bitcoin-kit"
+  labels:
+    app.kubernetes.io/name: "bitcoin-kit"
+spec:
+  type: ClusterIP
+  ports:
+    - name: "http"
+      port: 8080
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: "bitcoin-kit"

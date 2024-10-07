@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "bitcoin-kit"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: "nginx"
+  rules:
+    - host: "bitcoin-kit.hemi.xyz"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: "bitcoin-kit"
+                port:
+                  name: "http"
+  tls:
+    - hosts: [ "bitcoin-kit.hemi.xyz" ]
+      secretName: "bitcoin-kit-tls"
