@@ -137,6 +137,9 @@ export const HomePage = () => {
             editorProps={{ $blockScrolling: true }}
             setOptions={{
               useWorker: false,
+              fontSize: 14,
+              fontFamily: 'Menlo, Monaco, Consolas, "Courier New", monospace',
+              showGutter: true,
               tabSize: 2,
             }}
             width="100%"
