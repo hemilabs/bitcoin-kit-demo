@@ -29,6 +29,8 @@ jobs:
       tags: |
         hemilabs/bitcoin-kit:${{ github.sha }}
         ghcr.io/hemilabs/bitcoin-kit:${{ github.sha }}
+      build-args: |
+        BUILD_MODE=testnet
     secrets:
       DOCKERHUB_USERNAME: "${{ secrets.DOCKERHUB_USERNAME }}"
       DOCKERHUB_PASSWORD: "${{ secrets.DOCKERHUB_TOKEN }}"
