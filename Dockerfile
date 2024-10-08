@@ -8,9 +8,11 @@ COPY package.json .
 COPY package-lock.json .
 RUN npm ci
 
+ARG BUILD_MODE="testnet"
+
 # Build static files
 COPY . .
-RUN npm run build
+RUN npm run build -- --mode $BUILD_MODE
 
 # Run stage (nginx:1.27.0-alpine3.19-slim)
 FROM nginx@sha256:66943ac4a1ca7f111097d3c656939dfe8ae2bc8314bb45d6d80419c5fb25e304
