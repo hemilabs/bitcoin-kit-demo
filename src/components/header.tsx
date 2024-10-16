@@ -1,4 +1,5 @@
-import { WalletStatus } from './walletStatus'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 
 const HemiLogo = () => (
   <svg viewBox="0 0 1043.5 324.5" xmlns="http://www.w3.org/2000/svg">
@@ -15,13 +16,11 @@ const HemiLogo = () => (
 )
 
 const NetworkLabel = () => {
-  const chainNetwork = import.meta.env.VITE_CHAIN_NETWORK
+  const { chain } = useAccount()
 
   return (
     <div className="solid flex items-center justify-center rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1 text-base font-medium leading-normal text-orange-950">
-      <span>
-        Hemi Bitcoin Kit Demo {chainNetwork === 'testnet' && '- Testnet'}
-      </span>
+      <span>Hemi Bitcoin Kit Demo {chain?.testnet && '- Testnet'}</span>
     </div>
   )
 }
@@ -36,7 +35,7 @@ export const Header = function () {
         <NetworkLabel />
       </div>
       <div className="hidden md:flex">
-        <WalletStatus />
+        <ConnectButton />
       </div>
     </header>
   )

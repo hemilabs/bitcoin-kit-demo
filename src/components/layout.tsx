@@ -4,24 +4,15 @@ import { Footer } from './footer'
 import { Header } from './header'
 import { useEffect } from 'react'
 import { DesignForDesktop } from './designForDesktop'
-import { useWallet } from 'hooks/useWallet'
-import { handleError } from 'utils/handleError'
 
 export const Layout = function () {
-  const { connectWallet } = useWallet()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    connectWallet().catch(error =>
-      handleError('Failed to connect to a wallet', error),
-    )
-  }, [])
 
   useEffect(
     function redirectToHome() {
       if (pathname === '/') {
-        navigate('/home')
+        navigate('/code-editor')
       }
     },
     [navigate, pathname],

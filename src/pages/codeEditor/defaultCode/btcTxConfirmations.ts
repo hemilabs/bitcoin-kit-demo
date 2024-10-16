@@ -12,18 +12,16 @@ const btcTxConfirmations = `
 // This should be replaced by the user with the actual TxID.
 const txid = "0x<REPLACE_WITH_TXID>";
 
-// Convert the TxID from hexadecimal string to BytesLike using ethers.getBytes.
-const txidBytes = getBytes(txid);
-
-// Get the signer from the provider, which is provided through the state.
-const signer = await state.provider.getSigner();
-
-// Create a new contract instance with the contract address and ABI.
+// Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
-const contract = new Contract(state.contractAddress, ABI, signer);
+const contract = getContract({
+  client: walletClient,
+  address: contractAddress,
+  abi: ABI,
+});
 
 // This function calls the precompile at address 0x43 to retrieve the number of confirmations.
-const confirmations = await contract.btcTxConfirmations(txidBytes);
+const confirmations = await contract.read.btcTxConfirmations([txid]);
 
 // Return the number of confirmations retrieved by the contract call.
 return confirmations;

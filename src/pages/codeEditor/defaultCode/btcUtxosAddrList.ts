@@ -11,7 +11,7 @@ const btcUtxosAddrList = `
  */
 
 // Define the Bitcoin address to retrieve UTXOs for.
-// This should be replaced by the user with their actual Bitcoin address.
+// This should be replaced by the user with their actual Public Bitcoin address.
 const btcAddress = "<REPLACE_WITH_BTC_ADDRESS>";
 
 // Define the pagination parameters (starting index and max number of UTXOs).
@@ -19,15 +19,16 @@ const btcAddress = "<REPLACE_WITH_BTC_ADDRESS>";
 const startIndex = 0; // Start from the first UTXO
 const maxUtxos = 10; // Limit to 10 UTXOs per call
 
-// Get the signer from the provider, which is provided through the state.
-const signer = await state.provider.getSigner();
-
-// Create a new contract instance with the contract address and ABI.
+// Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
-const contract = new Contract(state.contractAddress, ABI, signer);
+const contract = getContract({
+  client: walletClient,
+  address: contractAddress,
+  abi: ABI,
+});
 
 // This function calls the precompile at address 0x41 to retrieve the UTXOs for the specified address.
-const utxos = await contract.btcUtxosAddrList(btcAddress, startIndex, maxUtxos);
+const utxos = await contract.read.btcUtxosAddrList([btcAddress, startIndex, maxUtxos]);
 
 // Return the UTXO list retrieved by the contract call.
 return utxos;
