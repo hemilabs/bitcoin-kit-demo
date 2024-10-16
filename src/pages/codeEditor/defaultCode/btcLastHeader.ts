@@ -8,16 +8,17 @@ const btcLastHeader = `
  * Precompile Address: 0x44
  */
 
-// Get the signer from the provider, which is provided through the state.
-const signer = await state.provider.getSigner();
-
-// Create a new contract instance with the contract address and ABI.
+// Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
-const contract = new Contract(state.contractAddress, ABI, signer);
+const contract = getContract({
+  client: walletClient,
+  address: contractAddress,
+  abi: ABI,
+});
 
 // Call the btcLastHeader function on the contract.
 // This function calls the precompile at address 0x44 to retrieve the latest Bitcoin block header.
-const lastHeader = await contract.btcLastHeader();
+const lastHeader = await contract.read.btcLastHeader();
 
 // Return the latest Bitcoin block header as a hex string.
 return lastHeader;

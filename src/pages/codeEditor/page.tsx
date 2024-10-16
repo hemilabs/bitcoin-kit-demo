@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { Contract, getBytes } from 'ethers'
-import { useBitcoinkitContext } from 'context/bitcoinkitContext'
 import ABI from '../../contracts/ContractABI'
 import AceEditor from 'react-ace'
 import 'ace-builds/src-noconflict/mode-javascript'
@@ -11,14 +9,19 @@ import defaultCode from './defaultCode/main'
 import { Output } from './_components/output'
 import { ContractMethods } from './_components/contractMethods'
 import { LatestContract } from './_components/latestContract'
+import { getContract } from 'viem'
+import { useAccount, useWalletClient } from 'wagmi'
 
 const enum ThemeEditorEnum {
   default = 'github',
   dark = 'twilight',
 }
 
-export const HomePage = () => {
-  const { state } = useBitcoinkitContext()
+const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
+
+export const CodeEditorPage = () => {
+  const { data: walletClient } = useWalletClient()
+  const { status, chain } = useAccount()
   const [selectedMethod, setSelectedMethod] =
     useState<keyof typeof defaultCode>('btcBalAddr')
   const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
@@ -29,6 +32,8 @@ export const HomePage = () => {
   const [error, setError] = useState<string | null>(null)
   const [logs, setLogs] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+
+  const walletConnected = status === 'connected' && chain
 
   const handleMethodChange = (method: keyof typeof defaultCode) => {
     setSelectedMethod(method)
@@ -60,10 +65,10 @@ export const HomePage = () => {
 
     try {
       const asyncFunc = new Function(
-        'state',
-        'Contract',
+        'contractAddress',
+        'getContract',
+        'walletClient',
         'ABI',
-        'getBytes',
         `
         return (async () => {
           ${code}
@@ -71,7 +76,12 @@ export const HomePage = () => {
       `,
       )
 
-      const result = await asyncFunc(state, Contract, ABI, getBytes)
+      const result = await asyncFunc(
+        contractAddress,
+        getContract,
+        walletClient,
+        ABI,
+      )
       setOutput(result ? safeJsonStringify(result) : 'No output')
     } catch (err: any) {
       setError(err.message || 'An error occurred')
@@ -84,11 +94,7 @@ export const HomePage = () => {
   return (
     <div className="w-screen rounded-lg bg-gray-100 p-4">
       <div className="mb-6 flex w-full items-center">
-        <LatestContract
-          contractAddress={state.contractAddress}
-          blockExplorerUrl={import.meta.env.VITE_CHAIN_BLOCK_EXPLORER_URL}
-          network={import.meta.env.VITE_CHAIN_NETWORK}
-        />
+        <LatestContract contractAddress={contractAddress} />
       </div>
       <div className="flex">
         <div className="w-1/4 rounded-lg bg-white p-4 shadow-md">
@@ -150,11 +156,11 @@ export const HomePage = () => {
             onClick={handleExecute}
             className={`mt-4 rounded-lg border bg-orange-950 px-4 py-2 text-lg text-white transition-colors
             ${
-              loading || !state.walletConnected
+              loading || !walletConnected
                 ? 'cursor-default border-neutral-300 bg-opacity-40'
                 : 'cursor-pointer bg-opacity-90 hover:bg-opacity-100'
             }`}
-            disabled={loading || !state.walletConnected}
+            disabled={loading || !walletConnected}
           >
             {loading ? 'Executing...' : 'Execute'}
           </button>

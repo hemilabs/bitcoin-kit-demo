@@ -12,16 +12,17 @@ const btcHeaderN = `
 // This should be replaced by the user with the desired index value.
 const headerIndex = "<REPLACE_WITH_HEADER_INDEX>";
 
-// Get the signer from the provider, which is provided through the state.
-const signer = await state.provider.getSigner();
-
-// Create a new contract instance with the contract address and ABI.
+// Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
-const contract = new Contract(state.contractAddress, ABI, signer);
+const contract = getContract({
+  client: walletClient,
+  address: contractAddress,
+  abi: ABI,
+});
 
 // Call the btcHeaderN function on the contract with the index N.
 // This function calls the precompile at address 0x45 to retrieve the canonical header.
-const header = await contract.btcHeaderN(headerIndex);
+const header = await contract.read.btcHeaderN([headerIndex]);
 
 // Return the canonical header at index N of the Bitcoin chain.
 return header;
