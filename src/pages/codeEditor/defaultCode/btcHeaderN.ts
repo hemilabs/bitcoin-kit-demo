@@ -1,4 +1,6 @@
-const btcHeaderN = `
+import { DefaultCode } from 'types/defaultCode'
+
+const code = `
 /**
  * Returns the canonical header at index N in the Bitcoin chain hVM is aware of.
  * 
@@ -27,5 +29,12 @@ const header = await contract.read.btcHeaderN([headerIndex]);
 // Return the canonical header at index N of the Bitcoin chain.
 return header;
 `
+
+const btcHeaderN: DefaultCode = {
+  name: 'btcHeaderN',
+  label: 'Get Block Header by Height',
+  description: 'Fetches the block header for a specific block height.',
+  code,
+}
 
 export default btcHeaderN

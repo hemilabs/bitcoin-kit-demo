@@ -19,19 +19,19 @@ export const Layout = function () {
   )
 
   return (
-    <div className="flex min-h-screen flex-col p-6">
-      <div className="flex-shrink-0">
+    <div className="flex min-h-screen flex-col py-6">
+      <div className="mb-4 flex-shrink-0 px-6">
         <Header />
       </div>
-      <main className="flex max-h-[calc(100vh-9rem)] flex-grow flex-col overflow-y-auto">
-        <div className="flex-grow py-16 md:hidden">
+      <main className="flex max-h-[calc(100vh-9rem)] flex-grow flex-col overflow-y-auto bg-gray-50">
+        <div className="flex-grow py-16 sm:hidden">
           <DesignForDesktop />
         </div>
-        <div className="hidden flex-grow items-center justify-center md:flex">
+        <div className="hidden flex-grow items-start justify-center sm:flex">
           <Outlet />
         </div>
       </main>
-      <div className="flex-shrink-0">
+      <div className="lg:px-22 flex-shrink-0 px-8 md:px-16 2xl:px-48">
         <Footer />
       </div>
     </div>

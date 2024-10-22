@@ -1,4 +1,6 @@
-const btcTxByTxid = `
+import { DefaultCode } from 'types/defaultCode'
+
+const code = `
 /**
  * Gets a transaction by a TxID.
  * 
@@ -29,5 +31,13 @@ const transaction = await contract.read.btcTxByTxid([txid]);
 // Return the transaction details retrieved by the contract call.
 return transaction;
 `
+
+const btcTxByTxid: DefaultCode = {
+  name: 'btcTxByTxid',
+  label: 'Get Transaction Details',
+  description:
+    'Fetches the details of a Bitcoin transaction using its transaction ID, including all of its inputs and outputs.',
+  code,
+}
 
 export default btcTxByTxid

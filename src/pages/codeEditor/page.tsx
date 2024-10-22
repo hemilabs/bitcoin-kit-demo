@@ -7,10 +7,12 @@ import 'ace-builds/src-noconflict/theme-github'
 
 import defaultCode from './defaultCode/main'
 import { Output } from './_components/output'
-import { ContractMethods } from './_components/contractMethods'
-import { LatestContract } from './_components/latestContract'
 import { getContract } from 'viem'
 import { useAccount, useWalletClient } from 'wagmi'
+import { Tab, TabPage } from 'components/tabPage'
+import { DefaultCode } from 'types/defaultCode'
+import btcBalAddr from './defaultCode/btcBalAddr'
+import defaultCodeList from './defaultCode/main'
 
 const enum ThemeEditorEnum {
   default = 'github',
@@ -22,12 +24,13 @@ const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
 export const CodeEditorPage = () => {
   const { data: walletClient } = useWalletClient()
   const { status, chain } = useAccount()
-  const [selectedMethod, setSelectedMethod] =
-    useState<keyof typeof defaultCode>('btcBalAddr')
+  const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr)
   const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
     ThemeEditorEnum.default,
   )
-  const [code, setCode] = useState<string>(defaultCode['btcBalAddr'])
+  const [code, setCode] = useState<string>(
+    defaultCode.find(c => c.name === 'btcBalAddr')?.code || '',
+  )
   const [output, setOutput] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [logs, setLogs] = useState<string[]>([])
@@ -35,9 +38,14 @@ export const CodeEditorPage = () => {
 
   const walletConnected = status === 'connected' && chain
 
-  const handleMethodChange = (method: keyof typeof defaultCode) => {
+  const handleMethodChange = (tab: Tab) => {
+    const method = defaultCode.find(c => c.name === tab.name)
+    if (!method) {
+      return
+    }
+
     setSelectedMethod(method)
-    setCode(defaultCode[method] || '')
+    setCode(method.code)
     setOutput(null)
     setError(null)
     setLogs([])
@@ -92,28 +100,28 @@ export const CodeEditorPage = () => {
   }
 
   return (
-    <div className="w-screen rounded-lg bg-gray-100 p-4">
-      <div className="mb-6 flex w-full items-center">
-        <LatestContract contractAddress={contractAddress} />
-      </div>
-      <div className="flex">
-        <div className="w-1/4 rounded-lg bg-white p-4 shadow-md">
-          <ContractMethods
-            defaultCode={defaultCode}
-            selectedMethod={selectedMethod}
-            loading={loading}
-            handleMethodChange={handleMethodChange}
-          />
-        </div>
-        <div className="mx-4 flex w-3/4 flex-col">
-          <div className="mb-1 flex items-center justify-between">
+    <div className="w-screen overflow-x-hidden">
+      <TabPage
+        tabs={defaultCodeList}
+        selectedTab={selectedMethod}
+        onChange={handleMethodChange}
+      />
+      <div className="lg:px-22 overflow-auto p-4 px-8 md:px-16 2xl:px-48">
+        <div className="flex flex-col">
+          <h2 className="mt-6 text-2xl font-normal text-neutral-950">
+            {selectedMethod.label}
+          </h2>
+          <span className="mt-1 text-sm font-normal text-neutral-500">
+            {selectedMethod.description}
+          </span>
+          <div className="mb-1 mt-4 flex items-center justify-between">
             <div className="flex items-center">
-              <h2 className="text-lg font-normal text-neutral-950">
+              <h3 className="text-lg font-normal text-neutral-950">
                 Code Editor
-              </h2>
-              <h3 className="ml-1 text-sm font-normal text-neutral-500">
-                (JavaScript)
               </h3>
+              <h4 className="ml-1 text-sm font-normal text-neutral-500">
+                (JavaScript)
+              </h4>
             </div>
             <div className="flex items-center justify-center">
               <label
@@ -134,37 +142,42 @@ export const CodeEditorPage = () => {
               </select>
             </div>
           </div>
-          <AceEditor
-            mode="javascript"
-            theme={ThemeEditor}
-            value={code}
-            onChange={newCode => setCode(newCode)}
-            name="editor"
-            editorProps={{ $blockScrolling: true }}
-            setOptions={{
-              useWorker: false,
-              fontSize: 14,
-              fontFamily: 'Menlo, Monaco, Consolas, "Courier New", monospace',
-              showGutter: true,
-              tabSize: 2,
-            }}
-            width="100%"
-            height="50dvh"
-            readOnly={loading}
-          />
-          <button
-            onClick={handleExecute}
-            className={`mt-4 rounded-lg border bg-orange-950 px-4 py-2 text-lg text-white transition-colors
-            ${
-              loading || !walletConnected
-                ? 'cursor-default border-neutral-300 bg-opacity-40'
-                : 'cursor-pointer bg-opacity-90 hover:bg-opacity-100'
-            }`}
-            disabled={loading || !walletConnected}
-          >
-            {loading ? 'Executing...' : 'Execute'}
-          </button>
-          <div className="mt-4 flex flex-row gap-x-4">
+        </div>
+
+        <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col lg:w-3/4">
+            <AceEditor
+              mode="javascript"
+              theme={ThemeEditor}
+              value={code}
+              onChange={newCode => setCode(newCode)}
+              name="editor"
+              editorProps={{ $blockScrolling: true }}
+              setOptions={{
+                useWorker: false,
+                fontSize: 14,
+                fontFamily: 'Menlo, Monaco, Consolas, "Courier New", monospace',
+                showGutter: true,
+                tabSize: 2,
+              }}
+              width="100%"
+              height="50dvh"
+              readOnly={loading}
+            />
+            <button
+              onClick={handleExecute}
+              className={`mt-4 rounded-lg border bg-orange-950 px-4 py-2 text-lg text-white transition-colors
+              ${
+                loading || !walletConnected
+                  ? 'cursor-default border-neutral-300 bg-opacity-40'
+                  : 'cursor-pointer bg-opacity-90 hover:bg-opacity-100'
+              }`}
+              disabled={loading || !walletConnected}
+            >
+              {loading ? 'Executing...' : 'Execute'}
+            </button>
+          </div>
+          <div className="mt-4 w-auto rounded-lg bg-white p-4 shadow-md lg:ml-6 lg:mt-0 lg:w-1/4">
             <div className="flex-1">
               <Output output={output} error={error} logs={logs} />
             </div>
