@@ -1,4 +1,6 @@
-const btcLastHeader = `
+import { DefaultCode } from 'types/defaultCode'
+
+const code = `
 /**
  * Retrieves the most recent Bitcoin block header.
  * 
@@ -23,5 +25,13 @@ const lastHeader = await contract.read.btcLastHeader();
 // Return the latest Bitcoin block header as a hex string.
 return lastHeader;
 `
+
+const btcLastHeader: DefaultCode = {
+  name: 'btcLastHeader',
+  label: 'Get Latest Block Header',
+  description:
+    'Returns the latest Bitcoin block header containing metadata like hash, height, and timestamp.',
+  code,
+}
 
 export default btcLastHeader

@@ -19,9 +19,12 @@ const NetworkLabel = () => {
   const { chain } = useAccount()
 
   return (
-    <div className="solid flex items-center justify-center rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1 text-base font-medium leading-normal text-orange-950">
-      <span>Hemi Bitcoin Kit Demo {chain?.testnet && '- Testnet'}</span>
-    </div>
+    <p className="solid flex items-center justify-center text-base font-medium leading-normal text-orange-950">
+      <span className="rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1">
+        Hemi Bitcoin Kit Demo
+      </span>
+      {chain?.testnet && <span className="ml-2">Testnet</span>}
+    </p>
   )
 }
 
