@@ -1,4 +1,4 @@
-import { DefaultCode } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 
 const code = `
 /**
@@ -7,7 +7,8 @@ const code = `
  * This code interacts with a smart contract to call the btcTxByTxid method,
  * which is mapped to a precompile at address: 0x42.
  * 
- * Bitflags can be used to optimize the information returned, such as only fetching inputs or outputs, 
+ * Bitflags can be used to optimize the information returned, such as only 
+ * fetching inputs or outputs, 
  * excluding unspendable outputs, etc., to save gas.
  * 
  * Precompile Address: 0x42
@@ -33,7 +34,7 @@ return transaction;
 `
 
 const btcTxByTxid: DefaultCode = {
-  name: 'btcTxByTxid',
+  name: DefaultCodeName.btcTxByTxid,
   label: 'Get Transaction Details',
   description:
     'Fetches the details of a Bitcoin transaction using its transaction ID, including all of its inputs and outputs.',

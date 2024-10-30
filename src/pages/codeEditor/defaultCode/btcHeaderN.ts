@@ -1,4 +1,4 @@
-import { DefaultCode } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 
 const code = `
 /**
@@ -31,7 +31,7 @@ return header;
 `
 
 const btcHeaderN: DefaultCode = {
-  name: 'btcHeaderN',
+  name: DefaultCodeName.btcHeaderN,
   label: 'Get Block Header by Height',
   description: 'Fetches the block header for a specific block height.',
   code,
