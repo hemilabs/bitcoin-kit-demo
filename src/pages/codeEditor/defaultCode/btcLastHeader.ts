@@ -1,4 +1,4 @@
-import { DefaultCode } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 
 const code = `
 /**
@@ -27,7 +27,7 @@ return lastHeader;
 `
 
 const btcLastHeader: DefaultCode = {
-  name: 'btcLastHeader',
+  name: DefaultCodeName.btcLastHeader,
   label: 'Get Latest Block Header',
   description:
     'Returns the latest Bitcoin block header containing metadata like hash, height, and timestamp.',

@@ -16,3 +16,22 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.ace_editor.ace-twilight::-webkit-scrollbar {
+  width: 12px;
+}
+
+.ace_editor.ace-twilight::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+  border-radius: 6px;
+}
+
+.ace_editor.ace-twilight::-webkit-scrollbar-track {
+  background-color: #000;
+}
+
+/* Firefox */
+.ace_editor.ace-twilight {
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #000;
+}

@@ -1,4 +1,4 @@
-import { DefaultCode } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 
 const code = `
 /**
@@ -30,7 +30,7 @@ return confirmations;
 `
 
 const btcTxConfirmations: DefaultCode = {
-  name: 'btcTxConfirmations',
+  name: DefaultCodeName.btcTxConfirmations,
   label: 'Get Transaction Confirmations',
   description:
     'Retrieves the number of confirmations for a specific transaction based on its transaction ID.',

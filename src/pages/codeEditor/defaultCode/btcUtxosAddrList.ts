@@ -1,4 +1,4 @@
-import { DefaultCode } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 
 const code = `
 /**
@@ -29,7 +29,8 @@ const contract = getContract({
   abi: ABI,
 });
 
-// This function calls the precompile at address 0x41 to retrieve the UTXOs for the specified address.
+// This function calls the precompile at address 0x41 to retrieve the UTXOs for the 
+// specified address.
 const utxos = await contract.read.btcUtxosAddrList([btcAddress, startIndex, maxUtxos]);
 
 // Return the UTXO list retrieved by the contract call.
@@ -37,7 +38,7 @@ return utxos;
 `
 
 const btcUtxosAddrList: DefaultCode = {
-  name: 'btcUtxosAddrList',
+  name: DefaultCodeName.btcUtxosAddrList,
   label: 'List Address UTXOs',
   description:
     'Returns the UTXOs (Unspent Transaction Outputs) of a Bitcoin address, with pagination support.',
