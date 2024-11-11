@@ -1,4 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { WarningIcon } from 'icons/warning'
 import { useAccount } from 'wagmi'
 
 const HemiLogo = () => (
@@ -37,7 +38,13 @@ export const Header = function () {
         </div>
         <NetworkLabel />
       </div>
-      <div className="hidden md:flex">
+      <div className="hidden flex-row items-center md:flex">
+        <WarningIcon />
+        <span className="ml-1 text-base font-medium text-rose-600">
+          Do not sign any transactions or approvals within this app
+        </span>
+      </div>
+      <div className="hidden sm:flex">
         <ConnectButton />
       </div>
     </header>
