@@ -1,11 +1,10 @@
-import { useAccount } from 'wagmi'
 // Ignored because the crypto-shortener package is not typed yet
 // It shold be fixed soon
 //@ts-ignore
 import { shorten } from 'crypto-shortener'
+import { hemiTestnet } from 'networks/hemiTestnet'
 
 export const Footer = () => {
-  const { chain } = useAccount()
   const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
 
   return (
@@ -15,11 +14,11 @@ export const Footer = () => {
         <span>© {new Date().getFullYear()} Hemi Labs, Inc.</span>
         <p className="space-x-1 text-right">
           <span className="italic text-neutral-500">
-            Latest hBK on Hemi {chain?.testnet && 'testnet'}:
+            Latest hBK on Hemi testnet
           </span>
           <a
             className="cursor-pointer"
-            href={`${chain?.blockExplorers?.default.url}/address/${contractAddress}?tab=read_contract`}
+            href={`${hemiTestnet.blockExplorers?.default.url}/address/${contractAddress}?tab=read_contract`}
             target="_blank"
             rel="noopener noreferrer"
           >
