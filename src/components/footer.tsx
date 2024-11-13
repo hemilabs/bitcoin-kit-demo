@@ -1,6 +1,3 @@
-// Ignored because the crypto-shortener package is not typed yet
-// It shold be fixed soon
-//@ts-ignore
 import { shorten } from 'crypto-shortener'
 import { hemiTestnet } from 'networks/hemiTestnet'
 
