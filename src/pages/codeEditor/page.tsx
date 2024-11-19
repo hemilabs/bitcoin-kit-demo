@@ -4,7 +4,7 @@ import ABI from '../../contracts/ContractABI'
 import defaultCode from './defaultCode/main'
 import { Output } from './_components/output'
 import { getContract } from 'viem'
-import { useAccount, useWalletClient } from 'wagmi'
+import { usePublicClient } from 'wagmi'
 import { Tab, TabPage } from 'components/tabPage'
 import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 import btcBalAddr from './defaultCode/btcBalAddr'
@@ -14,8 +14,7 @@ import { CodeEditor, ThemeEditorEnum } from './_components/codeEditor'
 const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
 
 export const CodeEditorPage = () => {
-  const { data: walletClient } = useWalletClient()
-  const { status, chain } = useAccount()
+  const publicClient = usePublicClient()
   const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr)
   const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
     ThemeEditorEnum.default,
@@ -27,8 +26,6 @@ export const CodeEditorPage = () => {
   const [error, setError] = useState<string | null>(null)
   const [logs, setLogs] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
-
-  const walletConnected = status === 'connected' && chain
 
   const handleMethodChange = (tab: Tab) => {
     const method = defaultCode.find(c => c.name === tab.name)
@@ -67,7 +64,7 @@ export const CodeEditorPage = () => {
       const asyncFunc = new Function(
         'contractAddress',
         'getContract',
-        'walletClient',
+        'publicClient',
         'ABI',
         `
         return (async () => {
@@ -79,7 +76,7 @@ export const CodeEditorPage = () => {
       const result = await asyncFunc(
         contractAddress,
         getContract,
-        walletClient,
+        publicClient,
         ABI,
       )
       setOutput(result ? safeJsonStringify(result) : 'No output')
@@ -124,7 +121,6 @@ export const CodeEditorPage = () => {
               onChange={setCode}
               onToggleTheme={toggleTheme}
               selectedMethod={selectedMethod}
-              walletConnected={walletConnected}
             />
           </div>
           <div className="h-full w-auto pb-10 pt-2 lg:ml-6 lg:w-1/4">

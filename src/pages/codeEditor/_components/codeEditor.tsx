@@ -21,7 +21,6 @@ interface Props {
   onHandleExecute: () => void
   onToggleTheme: () => void
   selectedMethod: DefaultCode
-  walletConnected?: boolean | Chain
 }
 
 export const CodeEditor = ({
@@ -32,7 +31,6 @@ export const CodeEditor = ({
   onChange,
   onToggleTheme,
   selectedMethod,
-  walletConnected,
 }: Props) => {
   return (
     <>
@@ -56,11 +54,11 @@ export const CodeEditor = ({
             onClick={onHandleExecute}
             className={`w-28 rounded-xl border py-1.5 text-base font-normal text-white transition-all duration-300
             ${
-              loading || !walletConnected
+              loading
                 ? 'cursor-default border-neutral-300 bg-execute-button-disabled'
                 : 'cursor-pointer bg-execute-button hover:brightness-90'
             }`}
-            disabled={loading || !walletConnected}
+            disabled={loading}
           >
             {loading ? 'Executing...' : 'Execute'}
           </button>
