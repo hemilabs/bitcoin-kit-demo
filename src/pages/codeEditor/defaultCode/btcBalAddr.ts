@@ -17,7 +17,7 @@ const bitcoinAddress = "<REPLACE_WITH_BITCOIN_ADDRESS>";
 // Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
 const contract = getContract({
-  client: walletClient,
+  client: publicClient,
   address: contractAddress,
   abi: ABI,
 });

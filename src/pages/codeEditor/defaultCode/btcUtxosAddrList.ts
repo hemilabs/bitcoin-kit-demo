@@ -24,7 +24,7 @@ const maxUtxos = 10; // Limit to 10 UTXOs per call
 // Get the contract instance with the contract address and ABI using wagmi/viem.
 // The contract address is also provided through the state.
 const contract = getContract({
-  client: walletClient,
+  client: publicClient,
   address: contractAddress,
   abi: ABI,
 });

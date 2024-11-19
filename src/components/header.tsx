@@ -1,6 +1,4 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { WarningIcon } from 'icons/warning'
-import { useAccount } from 'wagmi'
 
 const HemiLogo = () => (
   <svg viewBox="0 0 1043.5 324.5" xmlns="http://www.w3.org/2000/svg">
@@ -17,14 +15,12 @@ const HemiLogo = () => (
 )
 
 const NetworkLabel = () => {
-  const { chain } = useAccount()
-
   return (
     <p className="solid flex items-center justify-center text-base font-medium leading-normal text-orange-950">
       <span className="rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1">
         Hemi Bitcoin Kit Demo
       </span>
-      {chain?.testnet && <span className="ml-2">Testnet</span>}
+      <span className="ml-2">Testnet</span>
     </p>
   )
 }
@@ -43,9 +39,6 @@ export const Header = function () {
         <span className="ml-1 text-base font-medium text-rose-600">
           Do not sign any transactions or approvals within this app
         </span>
-      </div>
-      <div className="hidden sm:flex">
-        <ConnectButton />
       </div>
     </header>
   )
