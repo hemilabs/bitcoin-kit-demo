@@ -10,11 +10,11 @@ import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
 import btcBalAddr from './defaultCode/btcBalAddr'
 import defaultCodeList from './defaultCode/main'
 import { CodeEditor, ThemeEditorEnum } from './_components/codeEditor'
-
-const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
+import { useHemi } from 'hooks/useHemi'
 
 export const CodeEditorPage = () => {
-  const publicClient = usePublicClient()
+  const hemi = useHemi()
+  const publicClient = usePublicClient({ chainId: hemi.id })
   const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr)
   const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
     ThemeEditorEnum.default,
@@ -26,6 +26,10 @@ export const CodeEditorPage = () => {
   const [error, setError] = useState<string | null>(null)
   const [logs, setLogs] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+
+  const contractAddress = hemi.testnet
+    ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
+    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET
 
   const handleMethodChange = (tab: Tab) => {
     const method = defaultCode.find(c => c.name === tab.name)

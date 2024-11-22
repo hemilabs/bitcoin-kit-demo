@@ -1,4 +1,7 @@
 import { WarningIcon } from 'icons/warning'
+import { NetworkSwitch } from './networkSwitch'
+import { useHemi } from 'hooks/useHemi'
+import { isMainnetEnabled } from 'hooks/useNetworkType'
 
 const HemiLogo = () => (
   <svg viewBox="0 0 1043.5 324.5" xmlns="http://www.w3.org/2000/svg">
@@ -15,12 +18,13 @@ const HemiLogo = () => (
 )
 
 const NetworkLabel = () => {
+  const hemi = useHemi()
   return (
     <p className="solid flex items-center justify-center text-base font-medium leading-normal text-orange-950">
       <span className="rounded-full border border-orange-200/55 bg-orange-50 px-3 py-1">
         Hemi Bitcoin Kit Demo
       </span>
-      <span className="ml-2">Testnet</span>
+      {hemi.testnet && <span className="ml-2">Sepolia</span>}
     </p>
   )
 }
@@ -40,6 +44,11 @@ export const Header = function () {
           Do not sign any transactions or approvals within this app
         </span>
       </div>
+      {isMainnetEnabled && (
+        <div className="hidden sm:flex">
+          <NetworkSwitch />
+        </div>
+      )}
     </header>
   )
 }

@@ -21,7 +21,17 @@ const Left = ({ className = '' }: Props) => (
   <ChevronBase className={`rotate-180 ${className}`} />
 )
 
+const Bottom = ({ className = '' }: Props) => (
+  <ChevronBase className={`rotate-90 ${className}`} />
+)
+
+const Up = ({ className = '' }: Props) => (
+  <ChevronBase className={`-rotate-90 ${className}`} />
+)
+
 export const Chevron = {
   Left,
   Right: ChevronBase,
+  Bottom,
+  Up,
 }
