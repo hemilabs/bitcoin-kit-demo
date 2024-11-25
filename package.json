@@ -4,7 +4,7 @@
   "description": "Bitcoin Kit Demo",
   "main": "index.js",
   "scripts": {
-    "dev": "vite --mode testnet",
+    "dev": "vite",
     "format:check": "prettier --check .",
     "lint": "eslint --cache .",
     "build": "tsc && vite build",
@@ -16,6 +16,7 @@
     "ace-builds": "1.36.2",
     "crypto-shortener": "1.1.0",
     "hemi-viem": "1.5.0",
+    "nuqs": "2.0.0",
     "react": "18.2.0",
     "react-ace": "12.0.0",
     "react-dom": "18.2.0",

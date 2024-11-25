@@ -1,8 +1,11 @@
 import { shorten } from 'crypto-shortener'
-import { hemiTestnet } from 'networks/hemiTestnet'
+import { useHemi } from 'hooks/useHemi'
 
 export const Footer = () => {
-  const contractAddress = import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS
+  const hemi = useHemi()
+  const contractAddress = hemi.testnet
+    ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
+    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET
 
   return (
     <footer className="flex w-full flex-col items-center justify-between pt-4 text-sm font-medium text-neutral-400">
@@ -11,11 +14,11 @@ export const Footer = () => {
         <span>© {new Date().getFullYear()} Hemi Labs, Inc.</span>
         <p className="space-x-1 text-right">
           <span className="italic text-neutral-500">
-            Latest hBK on Hemi testnet
+            Latest hBK on Hemi {hemi.testnet && 'Sepolia'}
           </span>
           <a
             className="cursor-pointer"
-            href={`${hemiTestnet.blockExplorers?.default.url}/address/${contractAddress}?tab=read_contract`}
+            href={`${hemi.blockExplorers?.default.url}/address/${contractAddress}?tab=read_contract`}
             target="_blank"
             rel="noopener noreferrer"
           >
