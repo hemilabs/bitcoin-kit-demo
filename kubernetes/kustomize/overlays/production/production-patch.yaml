@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: "bitcoin-kit.hemi.xyz"
+
+- op: replace
+  path: /spec/tls/0/hosts/0
+  value: "bitcoin-kit.hemi.xyz"
