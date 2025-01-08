@@ -8,8 +8,8 @@ export enum DefaultCodeName {
 }
 
 export type DefaultCode = {
-  name: DefaultCodeName
-  label: string
-  description: string
-  code: string
-}
+  name: DefaultCodeName;
+  label: string;
+  description: string;
+  code: string;
+};

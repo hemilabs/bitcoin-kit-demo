@@ -1,20 +1,20 @@
-import { Chevron } from 'icons/chevron'
-import React, { useRef, useCallback, useEffect, forwardRef } from 'react'
+import { Chevron } from 'icons/chevron';
+import React, { useRef, useCallback, useEffect, forwardRef } from 'react';
 
 export type Tab = {
-  name: string
-  label: string
-}
+  name: string;
+  label: string;
+};
 
 interface Props {
-  tabs: Tab[]
-  selectedTab: Tab
-  onChange: (tab: Tab) => void
+  tabs: Tab[];
+  selectedTab: Tab;
+  onChange: (tab: Tab) => void;
 }
 
 interface ScrollButtonProps {
-  direction: 'left' | 'right'
-  onClick: () => void
+  direction: 'left' | 'right';
+  onClick: () => void;
 }
 
 const ScrollButton = forwardRef<HTMLDivElement, ScrollButtonProps>(
@@ -41,54 +41,55 @@ const ScrollButton = forwardRef<HTMLDivElement, ScrollButtonProps>(
       </button>
     </div>
   ),
-)
+);
 
 export const TabPage = ({ tabs, selectedTab, onChange }: Props) => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const leftRef = useRef<HTMLDivElement>(null)
-  const rightRef = useRef<HTMLDivElement>(null)
-  const scrollTrashold = 150
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const scrollTrashold = 150;
 
   const checkOverflow = useCallback(() => {
     if (scrollRef.current) {
-      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
 
-      const isOverflowing = scrollWidth > clientWidth
-      const isAtStart = scrollLeft === 0
-      const isAtEnd = scrollLeft + clientWidth >= scrollWidth
+      const isOverflowing = scrollWidth > clientWidth;
+      const isAtStart = scrollLeft === 0;
+      const isAtEnd = scrollLeft + clientWidth >= scrollWidth;
 
       if (leftRef.current) {
         leftRef.current.style.display =
-          isOverflowing && !isAtStart ? 'block' : 'none'
+          isOverflowing && !isAtStart ? 'block' : 'none';
       }
       if (rightRef.current) {
         rightRef.current.style.display =
-          isOverflowing && !isAtEnd ? 'block' : 'none'
+          isOverflowing && !isAtEnd ? 'block' : 'none';
       }
     }
-  }, [])
+  }, []);
 
   const scrollLeft = () => {
-    scrollRef.current?.scrollBy({ left: -scrollTrashold, behavior: 'smooth' })
-  }
+    scrollRef.current?.scrollBy({ behavior: 'smooth', left: -scrollTrashold });
+  };
 
   const scrollRight = () => {
-    scrollRef.current?.scrollBy({ left: scrollTrashold, behavior: 'smooth' })
-  }
+    scrollRef.current?.scrollBy({ behavior: 'smooth', left: scrollTrashold });
+  };
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(checkOverflow)
+    const resizeObserver = new ResizeObserver(checkOverflow);
 
     if (scrollRef.current) {
-      resizeObserver.observe(scrollRef.current)
-      scrollRef.current.addEventListener('scroll', checkOverflow)
+      resizeObserver.observe(scrollRef.current);
+      scrollRef.current.addEventListener('scroll', checkOverflow);
     }
 
     return () => {
-      resizeObserver.disconnect()
-      scrollRef.current?.removeEventListener('scroll', checkOverflow)
-    }
-  }, [checkOverflow])
+      resizeObserver.disconnect();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      scrollRef.current?.removeEventListener('scroll', checkOverflow);
+    };
+  }, [checkOverflow]);
 
   return (
     <div className="relative w-full bg-white">
@@ -117,5 +118,5 @@ export const TabPage = ({ tabs, selectedTab, onChange }: Props) => {
       </div>
       <ScrollButton ref={rightRef} direction="right" onClick={scrollRight} />
     </div>
-  )
-}
+  );
+};

@@ -1,20 +1,20 @@
-import { ComponentProps, MutableRefObject, ReactNode, useState } from 'react'
+import { ComponentProps, MutableRefObject, ReactNode, useState } from 'react';
 import {
   type NetworkType,
   networkTypes,
   useNetworkType,
-} from 'hooks/useNetworkType'
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import { CheckMarkIcon } from 'icons/checkMark'
-import { Chevron } from 'icons/chevron'
-import { Menu } from './menu'
+} from 'hooks/useNetworkType';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { CheckMarkIcon } from 'icons/checkMark';
+import { Chevron } from 'icons/chevron';
+import { Menu } from './menu';
 
 type Props = {
-  rightSection?: ReactNode
-  text: string
-}
+  rightSection?: ReactNode;
+  text: string;
+};
 
-type Selectable = { selected?: boolean }
+type Selectable = { selected?: boolean };
 
 const MenuContainer = ({
   children,
@@ -22,8 +22,8 @@ const MenuContainer = ({
   refProp,
   ...props
 }: { children: ReactNode } & {
-  isOpen: boolean
-  refProp: React.RefObject<HTMLDivElement> | MutableRefObject<HTMLDivElement>
+  isOpen: boolean;
+  refProp: React.RefObject<HTMLDivElement> | MutableRefObject<HTMLDivElement>;
 } & ComponentProps<'div'>) => (
   <div
     {...props}
@@ -34,7 +34,7 @@ const MenuContainer = ({
   >
     {children}
   </div>
-)
+);
 
 const ItemText = ({
   selected = false,
@@ -48,21 +48,21 @@ const ItemText = ({
   >
     {text}
   </span>
-)
+);
 
 const Row = (props: { children: ReactNode } & ComponentProps<'div'>) => (
   <div className="flex items-center gap-x-2" {...props} />
-)
+);
 
 export const NetworkSwitch = function () {
-  const [networkType, setNetworkType] = useNetworkType()
-  const [isOpen, setIsOpen] = useState(false)
-  const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false))
+  const [networkType, setNetworkType] = useNetworkType();
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
 
   const selectNetwork = function (type: NetworkType) {
-    setNetworkType(type)
-    setIsOpen(false)
-  }
+    setNetworkType(type);
+    setIsOpen(false);
+  };
 
   return (
     <MenuContainer
@@ -83,7 +83,7 @@ export const NetworkSwitch = function () {
           <div className="absolute right-0 top-0 z-50 translate-x-3 translate-y-8">
             <Menu
               items={networkTypes.map(function (type) {
-                const selected = type === networkType
+                const selected = type === networkType;
                 return {
                   content: (
                     <button
@@ -93,8 +93,8 @@ export const NetworkSwitch = function () {
                       disabled={selected}
                       key={type}
                       onClick={function (e) {
-                        e.stopPropagation()
-                        selectNetwork(type)
+                        e.stopPropagation();
+                        selectNetwork(type);
                       }}
                     >
                       <span className="capitalize">{type}</span>
@@ -104,12 +104,12 @@ export const NetworkSwitch = function () {
                     </button>
                   ),
                   id: type,
-                }
+                };
               })}
             />
           </div>
         )}
       </div>
     </MenuContainer>
-  )
-}
+  );
+};

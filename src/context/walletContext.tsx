@@ -1,9 +1,9 @@
-import { hemiMainnet } from 'networks/hemiMainnet'
-import { hemiTestnet } from 'networks/hemiTestnet'
-import { OrderedChains } from 'types/chain'
-import { createConfig, http } from 'wagmi'
+import { hemiMainnet } from 'networks/hemiMainnet';
+import { hemiTestnet } from 'networks/hemiTestnet';
+import { OrderedChains } from 'types/chain';
+import { createConfig, http } from 'wagmi';
 
-export const allNetworks: OrderedChains = [hemiMainnet, hemiTestnet]
+export const allNetworks: OrderedChains = [hemiMainnet, hemiTestnet];
 
 export const WalletContext = createConfig({
   chains: allNetworks,
@@ -15,4 +15,4 @@ export const WalletContext = createConfig({
       }),
     ]),
   ),
-})
+});

@@ -1,4 +1,4 @@
-import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode';
 
 const code = `
 /**
@@ -31,14 +31,14 @@ const transaction = await contract.read.btcTxByTxid([txid]);
 
 // Return the transaction details retrieved by the contract call.
 return transaction;
-`
+`;
 
 const btcTxByTxid: DefaultCode = {
-  name: DefaultCodeName.btcTxByTxid,
-  label: 'Get Transaction Details',
+  code,
   description:
     'Fetches the details of a Bitcoin transaction using its transaction ID, including all of its inputs and outputs.',
-  code,
-}
+  label: 'Get Transaction Details',
+  name: DefaultCodeName.btcTxByTxid,
+};
 
-export default btcTxByTxid
+export default btcTxByTxid;

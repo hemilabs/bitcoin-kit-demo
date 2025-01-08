@@ -1,8 +1,8 @@
-import { type Chain as ViemChain } from 'viem'
-import { defineChain } from 'viem/utils'
+import { type Chain as ViemChain } from 'viem';
+import { defineChain } from 'viem/utils';
 
 export const overrideRpcUrl = function (chain: ViemChain, rpcUrl?: string) {
-  const isValidCustomSepoliaRpc = !!rpcUrl && rpcUrl.startsWith('https')
+  const isValidCustomSepoliaRpc = !!rpcUrl && rpcUrl.startsWith('https');
   if (isValidCustomSepoliaRpc) {
     return defineChain({
       ...chain,
@@ -11,7 +11,7 @@ export const overrideRpcUrl = function (chain: ViemChain, rpcUrl?: string) {
           http: [rpcUrl],
         },
       },
-    })
+    });
   }
-  return chain
-}
+  return chain;
+};

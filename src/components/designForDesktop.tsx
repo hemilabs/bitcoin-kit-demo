@@ -16,7 +16,7 @@ const DesktopFrameIcon = () => (
     </svg>
     <div className="pointer-events-none absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent to-neutral-50"></div>
   </div>
-)
+);
 
 const InfoIcon = () => (
   <svg
@@ -39,7 +39,7 @@ const InfoIcon = () => (
       d="M11.25 7.25h1.5v1.5h-1.5z"
     />
   </svg>
-)
+);
 
 export const DesignForDesktop = function () {
   return (
@@ -66,5 +66,5 @@ export const DesignForDesktop = function () {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};

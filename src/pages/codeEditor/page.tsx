@@ -1,68 +1,68 @@
-import React, { useState } from 'react'
-import ABI from '../../contracts/ContractABI'
+import React, { useState } from 'react';
+import ABI from '../../contracts/ContractABI';
 
-import defaultCode from './defaultCode/main'
-import { Output } from './_components/output'
-import { getContract } from 'viem'
-import { usePublicClient } from 'wagmi'
-import { Tab, TabPage } from 'components/tabPage'
-import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
-import btcBalAddr from './defaultCode/btcBalAddr'
-import defaultCodeList from './defaultCode/main'
-import { CodeEditor, ThemeEditorEnum } from './_components/codeEditor'
-import { useHemi } from 'hooks/useHemi'
+import defaultCode from './defaultCode/main';
+import { Output } from './_components/output';
+import { getContract } from 'viem';
+import { usePublicClient } from 'wagmi';
+import { Tab, TabPage } from 'components/tabPage';
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode';
+import btcBalAddr from './defaultCode/btcBalAddr';
+import defaultCodeList from './defaultCode/main';
+import { CodeEditor, ThemeEditorEnum } from './_components/codeEditor';
+import { useHemi } from 'hooks/useHemi';
 
 export const CodeEditorPage = () => {
-  const hemi = useHemi()
-  const publicClient = usePublicClient({ chainId: hemi.id })
-  const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr)
+  const hemi = useHemi();
+  const publicClient = usePublicClient({ chainId: hemi.id });
+  const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr);
   const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
     ThemeEditorEnum.default,
-  )
+  );
   const [code, setCode] = useState<string>(
     defaultCode.find(c => c.name === DefaultCodeName.btcBalAddr)?.code || '',
-  )
-  const [output, setOutput] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [logs, setLogs] = useState<string[]>([])
-  const [loading, setLoading] = useState(false)
+  );
+  const [output, setOutput] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [logs, setLogs] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const contractAddress = hemi.testnet
     ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
-    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET
+    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET;
 
   const handleMethodChange = (tab: Tab) => {
-    const method = defaultCode.find(c => c.name === tab.name)
+    const method = defaultCode.find(c => c.name === tab.name);
     if (!method) {
-      return
+      return;
     }
 
-    setSelectedMethod(method)
-    setCode(method.code)
-    setOutput(null)
-    setError(null)
-    setLogs([])
-  }
+    setSelectedMethod(method);
+    setCode(method.code);
+    setOutput(null);
+    setError(null);
+    setLogs([]);
+  };
 
   const handleExecute = async () => {
-    setOutput(null)
-    setError(null)
-    setLoading(true)
-    setLogs([])
+    setOutput(null);
+    setError(null);
+    setLoading(true);
+    setLogs([]);
 
-    const originalConsoleLog = console.log
+    const originalConsoleLog = console.log;
     console.log = function (...args) {
-      setLogs(prevLogs => [...prevLogs, ...args.map(arg => arg.toString())])
-      originalConsoleLog.apply(console, args)
-    }
+      setLogs(prevLogs => [...prevLogs, ...args.map(arg => arg.toString())]);
+      originalConsoleLog.apply(console, args);
+    };
 
-    const safeJsonStringify = (obj: any) => {
+    const safeJsonStringify = (obj: unknown) => {
       return JSON.stringify(
         obj,
         (_, value) => (typeof value === 'bigint' ? value.toString() : value),
         2,
-      )
-    }
+      );
+    };
 
     try {
       const asyncFunc = new Function(
@@ -75,29 +75,30 @@ export const CodeEditorPage = () => {
           ${code}
         })();
       `,
-      )
+      );
 
       const result = await asyncFunc(
         contractAddress,
         getContract,
         publicClient,
         ABI,
-      )
-      setOutput(result ? safeJsonStringify(result) : 'No output')
+      );
+      setOutput(result ? safeJsonStringify(result) : 'No output');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || 'An error occurred')
+      setError(err.message || 'An error occurred');
     } finally {
-      setLoading(false)
-      console.log = originalConsoleLog
+      setLoading(false);
+      console.log = originalConsoleLog;
     }
-  }
+  };
 
   const toggleTheme = () =>
     setThemeEditor(prev =>
       prev === ThemeEditorEnum.dark
         ? ThemeEditorEnum.default
         : ThemeEditorEnum.dark,
-    )
+    );
 
   return (
     <div className="w-screen overflow-x-hidden">
@@ -144,5 +145,5 @@ export const CodeEditorPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

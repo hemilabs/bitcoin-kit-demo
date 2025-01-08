@@ -12,4 +12,4 @@ export const EditorJs = () => (
       </clipPath>
     </defs>
   </svg>
-)
+);
