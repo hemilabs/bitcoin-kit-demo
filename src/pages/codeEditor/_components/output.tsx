@@ -1,30 +1,30 @@
-import { LoadingSpinner } from 'components/loadingSpinner'
-import { CodeIcon } from 'icons/code'
+import { LoadingSpinner } from 'components/loadingSpinner';
+import { CodeIcon } from 'icons/code';
 
 interface OutputContentProps {
-  output: string | null
-  error: string | null
-  loading: boolean
+  output: string | null;
+  error: string | null;
+  loading: boolean;
 }
 
 interface LogsContentProps {
-  logs: string[]
+  logs: string[];
 }
 
 interface OutputProps extends OutputContentProps, LogsContentProps {}
 
 const colorizeSpecialChars = (text: string) => {
-  const parts = text.split(/([{}\[\],])/)
+  const parts = text.split(/([{}[\],])/);
   return parts.map((part, index) =>
-    /[{}\[\],]/.test(part) ? (
+    /[{}[\],]/.test(part) ? (
       <span key={index} className="text-neutral-500">
         {part}
       </span>
     ) : (
       <span key={index}>{part}</span>
     ),
-  )
-}
+  );
+};
 
 const OutputContent = ({ output, error, loading }: OutputContentProps) => {
   if (output) {
@@ -36,7 +36,7 @@ const OutputContent = ({ output, error, loading }: OutputContentProps) => {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -48,7 +48,7 @@ const OutputContent = ({ output, error, loading }: OutputContentProps) => {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 
   if (loading) {
@@ -58,7 +58,7 @@ const OutputContent = ({ output, error, loading }: OutputContentProps) => {
           <LoadingSpinner />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -75,11 +75,11 @@ const OutputContent = ({ output, error, loading }: OutputContentProps) => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const LogsContent = ({ logs }: LogsContentProps) => {
-  if (logs.length === 0) return null
+  if (logs.length === 0) return null;
 
   return (
     <div className="h-40 overflow-y-auto break-words p-4 font-ibm text-neutral-500 font-ss03-ss04">
@@ -87,12 +87,12 @@ const LogsContent = ({ logs }: LogsContentProps) => {
         {colorizeSpecialChars(logs.join('\n'))}
       </pre>
     </div>
-  )
-}
+  );
+};
 
 export const Output = ({ output, error, loading, logs }: OutputProps) => (
   <div className="flex h-full w-full flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-1 text-sm font-normal shadow-md">
     <OutputContent output={output} error={error} loading={loading} />
     <LogsContent logs={logs} />
   </div>
-)
+);

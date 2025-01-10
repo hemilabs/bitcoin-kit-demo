@@ -1,4 +1,4 @@
-import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode';
 
 const code = `
 /**
@@ -35,14 +35,14 @@ const utxos = await contract.read.btcUtxosAddrList([btcAddress, startIndex, maxU
 
 // Return the UTXO list retrieved by the contract call.
 return utxos;
-`
+`;
 
 const btcUtxosAddrList: DefaultCode = {
-  name: DefaultCodeName.btcUtxosAddrList,
-  label: 'List Address UTXOs',
+  code,
   description:
     'Returns the UTXOs (Unspent Transaction Outputs) of a Bitcoin address, with pagination support.',
-  code,
-}
+  label: 'List Address UTXOs',
+  name: DefaultCodeName.btcUtxosAddrList,
+};
 
-export default btcUtxosAddrList
+export default btcUtxosAddrList;

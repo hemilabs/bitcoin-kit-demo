@@ -1,12 +1,11 @@
-import AceEditor from 'react-ace'
-import 'ace-builds/src-noconflict/mode-javascript'
-import 'ace-builds/src-noconflict/theme-twilight'
-import 'ace-builds/src-noconflict/theme-github'
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/theme-twilight';
+import 'ace-builds/src-noconflict/theme-github';
 
-import { DefaultCode } from 'types/defaultCode'
-import ThemeSwitcher from './themeSwitcher'
-import { EditorJs } from 'icons/editorJs'
-import { Chain } from 'viem'
+import { DefaultCode } from 'types/defaultCode';
+import ThemeSwitcher from './themeSwitcher';
+import { EditorJs } from 'icons/editorJs';
 
 export const enum ThemeEditorEnum {
   default = 'github',
@@ -14,13 +13,13 @@ export const enum ThemeEditorEnum {
 }
 
 interface Props {
-  code: string
-  themeEditor: ThemeEditorEnum
-  loading: boolean
-  onChange: (code: string) => void
-  onHandleExecute: () => void
-  onToggleTheme: () => void
-  selectedMethod: DefaultCode
+  code: string;
+  themeEditor: ThemeEditorEnum;
+  loading: boolean;
+  onChange: (code: string) => void;
+  onHandleExecute: () => void;
+  onToggleTheme: () => void;
+  selectedMethod: DefaultCode;
 }
 
 export const CodeEditor = ({
@@ -73,11 +72,11 @@ export const CodeEditor = ({
           name="editor"
           editorProps={{ $blockScrolling: true }}
           setOptions={{
-            useWorker: false,
-            fontSize: 14,
             fontFamily: 'Menlo, Monaco, Consolas, "Courier New", monospace',
+            fontSize: 14,
             showGutter: false,
             tabSize: 2,
+            useWorker: false,
           }}
           width="100%"
           height="100%"
@@ -86,5 +85,5 @@ export const CodeEditor = ({
         />
       </div>
     </>
-  )
-}
+  );
+};

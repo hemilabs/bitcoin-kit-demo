@@ -1,22 +1,22 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { Footer } from './footer'
-import { Header } from './header'
-import { useEffect } from 'react'
-import { DesignForDesktop } from './designForDesktop'
+import { Footer } from './footer';
+import { Header } from './header';
+import { useEffect } from 'react';
+import { DesignForDesktop } from './designForDesktop';
 
 export const Layout = function () {
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(
     function redirectToHome() {
       if (pathname === '/') {
-        navigate('/code-editor')
+        navigate('/code-editor');
       }
     },
     [navigate, pathname],
-  )
+  );
 
   return (
     <div className="flex min-h-screen flex-col py-6">
@@ -35,5 +35,5 @@ export const Layout = function () {
         <Footer />
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode';
 
 const code = `
 /**
@@ -28,13 +28,13 @@ const satoshis = await contract.read.btcBalAddr([bitcoinAddress]);
 
 // Return the amount in satoshis of the contract call.
 return satoshis;
-`
+`;
 const btcBalAddr: DefaultCode = {
-  name: DefaultCodeName.btcBalAddr,
-  label: 'Get Address Balance',
+  code,
   description:
     'Retrieves the current balance (in satoshis) of a specified Bitcoin address',
-  code,
-}
+  label: 'Get Address Balance',
+  name: DefaultCodeName.btcBalAddr,
+};
 
-export default btcBalAddr
+export default btcBalAddr;

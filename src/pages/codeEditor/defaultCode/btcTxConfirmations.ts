@@ -1,4 +1,4 @@
-import { DefaultCode, DefaultCodeName } from 'types/defaultCode'
+import { DefaultCode, DefaultCodeName } from 'types/defaultCode';
 
 const code = `
 /**
@@ -27,14 +27,14 @@ const confirmations = await contract.read.btcTxConfirmations([txid]);
 
 // Return the number of confirmations retrieved by the contract call.
 return confirmations;
-`
+`;
 
 const btcTxConfirmations: DefaultCode = {
-  name: DefaultCodeName.btcTxConfirmations,
-  label: 'Get Transaction Confirmations',
+  code,
   description:
     'Retrieves the number of confirmations for a specific transaction based on its transaction ID.',
-  code,
-}
+  label: 'Get Transaction Confirmations',
+  name: DefaultCodeName.btcTxConfirmations,
+};
 
-export default btcTxConfirmations
+export default btcTxConfirmations;

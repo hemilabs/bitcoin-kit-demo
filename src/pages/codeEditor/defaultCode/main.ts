@@ -1,10 +1,10 @@
-import { DefaultCode } from 'types/defaultCode'
-import btcBalAddr from './btcBalAddr'
-import btcHeaderN from './btcHeaderN'
-import btcLastHeader from './btcLastHeader'
-import btcTxByTxid from './btcTxByTxid'
-import btcTxConfirmations from './btcTxConfirmations'
-import btcUtxosAddrList from './btcUtxosAddrList'
+import { DefaultCode } from 'types/defaultCode';
+import btcBalAddr from './btcBalAddr';
+import btcHeaderN from './btcHeaderN';
+import btcLastHeader from './btcLastHeader';
+import btcTxByTxid from './btcTxByTxid';
+import btcTxConfirmations from './btcTxConfirmations';
+import btcUtxosAddrList from './btcUtxosAddrList';
 
 const defaultCodeList: DefaultCode[] = [
   btcBalAddr,
@@ -13,6 +13,6 @@ const defaultCodeList: DefaultCode[] = [
   btcTxByTxid,
   btcTxConfirmations,
   btcUtxosAddrList,
-]
+];
 
-export default defaultCodeList
+export default defaultCodeList;

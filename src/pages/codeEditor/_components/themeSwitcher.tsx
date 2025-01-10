@@ -1,9 +1,9 @@
-import { MoonIcon } from 'icons/moon'
-import { SunIcon } from 'icons/sun'
+import { MoonIcon } from 'icons/moon';
+import { SunIcon } from 'icons/sun';
 
 interface Props {
-  isDark: boolean
-  onToggle: () => void
+  isDark: boolean;
+  onToggle: () => void;
 }
 
 const ThemeSwitcher = ({ isDark, onToggle }: Props) => {
@@ -32,7 +32,7 @@ const ThemeSwitcher = ({ isDark, onToggle }: Props) => {
         <MoonIcon />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ThemeSwitcher
+export default ThemeSwitcher;

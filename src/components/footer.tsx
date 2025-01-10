@@ -1,11 +1,11 @@
-import { shorten } from 'crypto-shortener'
-import { useHemi } from 'hooks/useHemi'
+import { shorten } from 'crypto-shortener';
+import { useHemi } from 'hooks/useHemi';
 
 export const Footer = () => {
-  const hemi = useHemi()
+  const hemi = useHemi();
   const contractAddress = hemi.testnet
     ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
-    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET
+    : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET;
 
   return (
     <footer className="flex w-full flex-col items-center justify-between pt-4 text-sm font-medium text-neutral-400">
@@ -30,5 +30,5 @@ export const Footer = () => {
         </p>
       </div>
     </footer>
-  )
-}
+  );
+};

@@ -33,4 +33,4 @@ export const CodeIcon = () => (
       </filter>
     </defs>
   </svg>
-)
+);

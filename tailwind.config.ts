@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -30,8 +30,8 @@ const config: Config = {
         '.font-ss03-ss04': {
           fontFeatureSettings: "'ss03' on, 'ss04' on",
         },
-      })
+      });
     },
   ],
-}
-export default config
+};
+export default config;
