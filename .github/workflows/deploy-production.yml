@@ -51,5 +51,5 @@ jobs:
       environment-name: production
       environment-url: "https://bitcoin-kit.hemi.xyz/"
     secrets:
-      KUBECONFIG: "${{ secrets.VKE_PROD_KUBECONFIG }}"
-      KUBECONFIG_CONTEXT: "${{ secrets.VKE_PROD_KUBECONFIG_CONTEXT }}"
+      KUBECONFIG: "${{ secrets.APPS_PROD_KUBECONFIG }}"
+      KUBECONFIG_CONTEXT: "${{ secrets.APPS_PROD_KUBECONFIG_CONTEXT }}"
