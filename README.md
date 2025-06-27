@@ -1,6 +1,6 @@
 # Bitcoin Kit Demo
 
-Bitcoin Kit Demo is a lightweight interface that allows developers to interact with the [Hemi Network's](https://hemi.xyz) Bitcoin Kit (hBK), which is a set of smart contracts designed to bridge the Ethereum and Bitcoin blockchains. It enables testing and experimentation with Hemi precompiles that expose Bitcoin data to EVM-based applications. For more details on the architecture and functionality of the Bitcoin Kit, refer to the official documentation: [Hemi Bitcoin Kit (hBK)](https://docs.hemi.xyz/building-bitcoin-apps/hemi-bitcoin-kit-hbk).
+Bitcoin Kit Demo is a lightweight interface that allows developers to interact with [Hemi](https://hemi.xyz) Bitcoin Kit (hBK), which is a set of smart contracts designed to bridge the Ethereum and Bitcoin blockchains. It enables testing and experimentation with Hemi precompiles that expose Bitcoin data to EVM-based applications. For more details on the architecture and functionality of the Bitcoin Kit, refer to the official documentation: [Hemi Bitcoin Kit (hBK)](https://docs.hemi.xyz/building-bitcoin-apps/hemi-bitcoin-kit-hbk).
 
 This document provides instructions on how to set up, run, and contribute to the project.
 
