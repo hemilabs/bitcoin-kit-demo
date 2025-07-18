@@ -11,7 +11,7 @@ export const Footer = () => {
     <footer className="flex w-full flex-col items-center justify-between pt-4 text-sm font-medium text-neutral-400">
       <div className="h-0.5 w-full bg-neutral-200" />
       <div className="mt-2 flex w-full items-center justify-between">
-        <span>© {new Date().getFullYear()} Hemi Labs, Inc.</span>
+        <span>© {new Date().getFullYear()} Hemispheres Foundation</span>
         <p className="space-x-1 text-right">
           <span className="italic text-neutral-500">
             Latest hBK on Hemi {hemi.testnet && 'Sepolia'}
