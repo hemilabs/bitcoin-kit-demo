@@ -1,6 +1,6 @@
 {
   "extends": ["bloq", "prettier"],
-  "ignorePatterns": ["dist"],
+  "ignorePatterns": ["dist", "public"],
   "overrides": [
     {
       "extends": ["bloq/typescript", "prettier"],

@@ -6,8 +6,11 @@ import { WagmiProvider } from 'wagmi';
 import { WalletContext } from 'context/walletContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/react';
+import { UmamiAnalyticsProvider } from 'analyticsEvents';
 
-const Content = ({ queryClient }: { queryClient: QueryClient }) => {
+const queryClient = new QueryClient();
+
+const Content = () => {
   return (
     <WagmiProvider config={WalletContext}>
       <QueryClientProvider client={queryClient}>
@@ -18,12 +21,20 @@ const Content = ({ queryClient }: { queryClient: QueryClient }) => {
 };
 
 export const App = () => {
-  const queryClient = new QueryClient();
+  const websiteId = import.meta.env.VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID;
 
   return (
     <div className="bg-neutral-50">
       <NuqsAdapter>
-        <Content queryClient={queryClient} />
+        <UmamiAnalyticsProvider
+          autoTrack={false}
+          {...(websiteId && {
+            src: '/umami.js',
+            websiteId,
+          })}
+        >
+          <Content />
+        </UmamiAnalyticsProvider>
       </NuqsAdapter>
     </div>
   );

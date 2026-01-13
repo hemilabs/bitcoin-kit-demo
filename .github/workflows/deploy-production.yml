@@ -32,6 +32,7 @@ jobs:
         ghcr.io/hemilabs/bitcoin-kit:${{ github.sha }}
       build-args: |
         BUILD_MODE=mainnet
+        VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID=${{ secrets.VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID }}
     secrets:
       DOCKERHUB_USERNAME: "${{ secrets.DOCKERHUB_USERNAME }}"
       DOCKERHUB_PASSWORD: "${{ secrets.DOCKERHUB_TOKEN }}"
