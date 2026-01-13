@@ -1,7 +1,7 @@
 import { umamiAnalyticsContextFactory } from 'umami-analytics-next';
 
 const analyticsEvents = [
-  'Click on lastest hBK smart contract link',
+  'Click on latest hBK smart contract link',
   'Execute with error',
   'Execute with success',
   'Switch Theme to Dark',

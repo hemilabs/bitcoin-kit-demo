@@ -24,7 +24,7 @@ export const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {
-              track?.('Click on lastest hBK smart contract link');
+              track?.('Click on latest hBK smart contract link');
             }}
           >
             <span className="mr-1 text-orange-500">
