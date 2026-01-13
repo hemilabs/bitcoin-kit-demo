@@ -29,7 +29,7 @@ export const App = () => {
         <UmamiAnalyticsProvider
           autoTrack={false}
           {...(websiteId && {
-            src: '/umami.js',
+            src: 'https://umami.hemi.xyz/t.js',
             websiteId,
           })}
         >
