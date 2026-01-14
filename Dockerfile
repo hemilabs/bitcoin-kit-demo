@@ -1,6 +1,9 @@
 # Build stage (node:20.15.0-alpine3.19)
 FROM node@sha256:1bdec9c67503d33348be6e73a8e5e94aad679b32da15e4fd3956e5e48f87f623 as build
 
+# Declare build arguments
+ARG VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID
+
 WORKDIR /build/bitcoin-kit-demo
 
 # Install node dependencies
@@ -10,6 +13,10 @@ RUN npm ci
 
 # Build static files
 COPY . .
+
+# Set environment variable for Vite build
+ENV VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID=$VITE_HEMI_BITCOIN_KIT_ANALYTICS_WEBSITE_ID
+
 RUN npm run build
 
 # Run stage (nginx:1.27.0-alpine3.19-slim)

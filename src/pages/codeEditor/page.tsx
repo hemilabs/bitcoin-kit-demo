@@ -11,14 +11,14 @@ import btcBalAddr from './defaultCode/btcBalAddr';
 import defaultCodeList from './defaultCode/main';
 import { CodeEditor, ThemeEditorEnum } from './_components/codeEditor';
 import { useHemi } from 'hooks/useHemi';
+import { useUmami } from 'analyticsEvents';
 
 export const CodeEditorPage = () => {
   const hemi = useHemi();
   const publicClient = usePublicClient({ chainId: hemi.id });
   const [selectedMethod, setSelectedMethod] = useState<DefaultCode>(btcBalAddr);
-  const [ThemeEditor, setThemeEditor] = useState<ThemeEditorEnum>(
-    ThemeEditorEnum.default,
-  );
+  const [selectedThemeEditor, setSelectedThemeEditor] =
+    useState<ThemeEditorEnum>(ThemeEditorEnum.default);
   const [code, setCode] = useState<string>(
     defaultCode.find(c => c.name === DefaultCodeName.btcBalAddr)?.code || '',
   );
@@ -26,6 +26,7 @@ export const CodeEditorPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const { track } = useUmami();
 
   const contractAddress = hemi.testnet
     ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
@@ -42,6 +43,8 @@ export const CodeEditorPage = () => {
     setOutput(null);
     setError(null);
     setLogs([]);
+
+    track?.(`Tabs - ${method.name}`);
   };
 
   const handleExecute = async () => {
@@ -84,21 +87,31 @@ export const CodeEditorPage = () => {
         ABI,
       );
       setOutput(result ? safeJsonStringify(result) : 'No output');
+      track?.('Execute with success');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || 'An error occurred');
+      track?.('Execute with error');
     } finally {
       setLoading(false);
       console.log = originalConsoleLog;
     }
   };
 
-  const toggleTheme = () =>
-    setThemeEditor(prev =>
+  const toggleTheme = () => {
+    const currentThemeEditor = selectedThemeEditor;
+    setSelectedThemeEditor(prev =>
       prev === ThemeEditorEnum.dark
         ? ThemeEditorEnum.default
         : ThemeEditorEnum.dark,
     );
+
+    track?.(
+      `Switch Theme to ${
+        currentThemeEditor === ThemeEditorEnum.dark ? 'Light' : 'Dark'
+      }`,
+    );
+  };
 
   return (
     <div className="w-screen overflow-x-hidden">
@@ -120,7 +133,7 @@ export const CodeEditorPage = () => {
           <div className="flex min-h-[40vh] flex-grow flex-col lg:w-3/4">
             <CodeEditor
               code={code}
-              themeEditor={ThemeEditor}
+              themeEditor={selectedThemeEditor}
               loading={loading}
               onHandleExecute={handleExecute}
               onChange={setCode}

@@ -8,6 +8,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { CheckMarkIcon } from 'icons/checkMark';
 import { Chevron } from 'icons/chevron';
 import { Menu } from './menu';
+import { useUmami } from 'analyticsEvents';
 
 type Props = {
   rightSection?: ReactNode;
@@ -58,10 +59,12 @@ export const NetworkSwitch = function () {
   const [networkType, setNetworkType] = useNetworkType();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
+  const { track } = useUmami();
 
   const selectNetwork = function (type: NetworkType) {
     setNetworkType(type);
     setIsOpen(false);
+    track?.(`Switch to ${type}`);
   };
 
   return (

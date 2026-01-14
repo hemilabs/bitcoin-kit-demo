@@ -1,8 +1,10 @@
+import { useUmami } from 'analyticsEvents';
 import { shorten } from 'crypto-shortener';
 import { useHemi } from 'hooks/useHemi';
 
 export const Footer = () => {
   const hemi = useHemi();
+  const { track } = useUmami();
   const contractAddress = hemi.testnet
     ? import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_TESTNET
     : import.meta.env.VITE_HEMI_BITCOIN_KIT_CONTRACT_ADDRESS_MAINNET;
@@ -21,6 +23,9 @@ export const Footer = () => {
             href={`${hemi.blockExplorers?.default.url}/address/${contractAddress}?tab=read_contract`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              track?.('Click on latest hBK smart contract link');
+            }}
           >
             <span className="mr-1 text-orange-500">
               {shorten(contractAddress)}
