@@ -18,7 +18,7 @@ jobs:
   # Build and push Docker image
   docker:
     name: Docker
-    uses: hemilabs/actions/.github/workflows/docker.yml@main
+    uses: hemilabs/actions/.github/workflows/docker.yml@c86350368ebf1124e81813d1497fb44606f3b6c1 # v2.0.0
     permissions:
       contents: read
       packages: write # Needed to push to the GitHub Container Registry
@@ -40,7 +40,7 @@ jobs:
   # Deploy to Kubernetes cluster
   deploy:
     name: Deploy to production
-    uses: hemilabs/actions/.github/workflows/deploy-kustomize.yml@main
+    uses: hemilabs/actions/.github/workflows/deploy-kustomize.yml@c86350368ebf1124e81813d1497fb44606f3b6c1 # v2.0.0
     needs:
       - docker
     permissions:
