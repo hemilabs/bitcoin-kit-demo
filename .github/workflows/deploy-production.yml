@@ -36,21 +36,3 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: "${{ secrets.DOCKERHUB_USERNAME }}"
       DOCKERHUB_PASSWORD: "${{ secrets.DOCKERHUB_TOKEN }}"
-
-  # Deploy to Kubernetes cluster
-  deploy:
-    name: Deploy to production
-    uses: hemilabs/actions/.github/workflows/deploy-kustomize.yml@main
-    needs:
-      - docker
-    permissions:
-      contents: read
-    with:
-      namespace: "bitcoin-kit"
-      kustomize: "./kubernetes/kustomize/overlays/production/"
-      image: "hemilabs/bitcoin-kit:${{ github.sha }}"
-      environment-name: production
-      environment-url: "https://bitcoin-kit.hemi.xyz/"
-    secrets:
-      KUBECONFIG: "${{ secrets.APPS_PROD_KUBECONFIG }}"
-      KUBECONFIG_CONTEXT: "${{ secrets.APPS_PROD_KUBECONFIG_CONTEXT }}"
