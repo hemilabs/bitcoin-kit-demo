@@ -27,7 +27,7 @@ export const App = () => {
     <div className="bg-neutral-50">
       <NuqsAdapter>
         <UmamiAnalyticsProvider
-          autoTrack={false}
+          autoTrack
           {...(websiteId && {
             src: 'https://umami.hemi.xyz/t.js',
             websiteId,
